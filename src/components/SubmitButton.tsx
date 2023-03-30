@@ -1,10 +1,10 @@
-import React from 'react';
 import { Button, useToast } from '@chakra-ui/react';
 import { ISubmitButtonProps } from '../interfaces';
+import React from 'react';
 
 
 function SubmitButton(props: ISubmitButtonProps) {
-  const toast = useToast()
+  const toast = useToast();
   return (
     <Button
       isDisabled={props.isDisabled}

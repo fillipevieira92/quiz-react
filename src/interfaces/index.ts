@@ -1,3 +1,7 @@
+export interface IQuizPageProps {
+  questions: IQuestion[]
+}
+
 export interface IQuizPageState {
   questions: IQuestion[]
   isFormValid: boolean,
@@ -25,8 +29,8 @@ export interface IQuestion {
 }
 
 export interface IAswner {
-  id: number|null
-  text: string|null
+  id: number | null
+  text: string | null
 }
 
 export interface ISubmitButtonProps {

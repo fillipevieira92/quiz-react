@@ -1,7 +1,7 @@
 import { Card, CardBody, CardHeader, Stack, Text } from '@chakra-ui/react';
+import { IQuestionCardProps, IQuestionCardState } from '../interfaces';
 import { Select } from 'chakra-react-select';
 import React from 'react';
-import { IQuestionCardProps, IQuestionCardState } from '../interfaces';
 
 class QuestionCard extends React.Component<IQuestionCardProps, IQuestionCardState> {
   constructor(props: IQuestionCardProps){
@@ -11,17 +11,17 @@ class QuestionCard extends React.Component<IQuestionCardProps, IQuestionCardStat
       question: this.props.question,
       selected: false,
       cardBgColor: "purple.700"
-    }
+    };
   }
 
-  async handleSelectChoice(e: any) {
+  handleSelectChoice(e: any): void {
     let quest = this.state.question;
     quest.answered.text = e.label;
     quest.answered.id = e.value;
 
     quest.answered.id === quest.correct.id ?
-      await this.setState({ cardBgColor: "green.700", question: quest, selected: true }) :
-      await this.setState({ cardBgColor: "red.700", question: quest, selected: true })
+      this.setState({ cardBgColor: "green.700", question: quest, selected: true }) :
+      this.setState({ cardBgColor: "red.700", question: quest, selected: true })
 
     this.props.handleSelectChoice(this.state.question);
   }

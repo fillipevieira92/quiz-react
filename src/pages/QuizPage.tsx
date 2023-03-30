@@ -1,17 +1,16 @@
+import { IQuestion, IQuizPageProps, IQuizPageState } from '../interfaces';
 import { Container, Stack, Spacer, Text } from '@chakra-ui/react';
-import React from 'react';
 import SubmitButton from '../components/SubmitButton';
 import QuestionCard from '../components/QuestionCard';
-import { getQuestions } from '../helpers/Questions';
-import { IQuestion, IQuizPageState } from '../interfaces';
+import React from 'react';
 
-class QuizPage extends React.Component<React.PropsWithChildren, IQuizPageState> {
+class QuizPage extends React.Component<IQuizPageProps, IQuizPageState> {
 
-  constructor(props: any){
+  constructor(props: IQuizPageProps){
     super(props);
 
     this.state = { 
-      questions: getQuestions(),
+      questions: this.props.questions,
       isFormValid: false,
       correct: [],
       wrong: []
@@ -19,19 +18,19 @@ class QuizPage extends React.Component<React.PropsWithChildren, IQuizPageState> 
     this.handleSelectChoice = this.handleSelectChoice.bind(this);
   };
 
-  async handleSelectChoice(quest: IQuestion): Promise<void> {
+  handleSelectChoice(quest: IQuestion): void {
     const questions:IQuestion[] = this.state.questions.map((question) => {
       if (question.id === quest.id) {
         question.answered = quest.answered;
       }
       return question;
     });
-    await this.setState({ questions: questions });
+    this.setState({ questions: questions });
     
     this.checkForm();
   }
 
-  async checkForm(): Promise<void> {
+  checkForm(): void {
     let correct:IQuestion[] = [];
     let wrong:IQuestion[] = [];
 
@@ -42,10 +41,10 @@ class QuizPage extends React.Component<React.PropsWithChildren, IQuizPageState> 
           wrong.push(question);
       }
     });
-    await this.setState({ correct: correct, wrong: wrong });
+    this.setState({ correct: correct, wrong: wrong });
 
     if (correct.length + wrong.length === this.state.questions.length) {
-      await this.setState({ isFormValid: true });
+      this.setState({ isFormValid: true });
     }
   }
 
